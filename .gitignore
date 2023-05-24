@@ -31,4 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Other ###
 src/main/resources/application.properties
+src/main/resources/static/test.js
+src/main/resources/static/test.sql
