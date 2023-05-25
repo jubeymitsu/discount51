@@ -1,0 +1,27 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Main page</title>
+</head>
+<body>
+<h2 th:text="${pageTitle}"/>
+<h1>Form</h1>
+<form action="#" th:action="@{/users/save}" th:object="${user}" method="post" enctype="multipart/form-data">
+  <input type="hidden" th:field="*{id}"/>
+  <p>Name: <input type="text" th:field="*{firstName}" /></p>
+  <p>Phone number: <input type="text" th:field="*{phoneNumber}" /></p>
+  <div>Sale: <input type="checkbox" th:field="*{enSale}" th:value="FIVE"/>5 </br>
+    <input type="checkbox" th:field="*{enSale}" th:value="SEVEN"/>7 </br>
+    <input type="checkbox" th:field="*{enSale}" th:value="TEN"/>10 </br>
+  </div>
+
+  <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+
+
+</body>
+</html>

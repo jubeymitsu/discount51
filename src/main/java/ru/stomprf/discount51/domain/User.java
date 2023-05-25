@@ -16,6 +16,8 @@ public class User {
     @Column(nullable = false)
     private int sale;
 
+    private Sale enSale;
+
     public User(String firstName, String phoneNumber, int sale) {
         this.firstName = firstName;
         this.phoneNumber = phoneNumber;
@@ -25,17 +27,19 @@ public class User {
     public User() {
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public User(Integer id) {
         this.id = id;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -61,6 +65,14 @@ public class User {
         this.sale = sale;
     }
 
+    public Sale getEnSale() {
+        return enSale;
+    }
+
+    public void setEnSale(Sale enSale) {
+        this.enSale = enSale;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -68,6 +80,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", sale=" + sale +
+                ", enSale=" + enSale +
                 '}';
     }
 }
