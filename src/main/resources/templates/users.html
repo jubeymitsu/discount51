@@ -34,9 +34,9 @@
            class="fa-regular fa-pen-to-square icon-dark">Edit</a>
 
 <!--        <a th:href="@{'/users/delete/' + ${user.id}}" id="delete"-->
-<!--           title="Delete this tutorial" class="fa-regular fa-trash-can icon-dark btn-delete">Delete</a>-->
-        <a href="#" id="delete" onclick="showConfirmationAndDelete()"
-           title="Delete this tutorial" class="fa-regular fa-trash-can icon-dark btn-delete">Delete</a>
+        <!--           title="Delete this tutorial" class="fa-regular fa-trash-can icon-dark btn-delete">Delete</a>-->
+        <a href="#" th:id="d + ${user.id}"
+           title="Delete this tutorial" onclick="showConfirmationAndDelete(event)" class="fa-regular fa-trash-can icon-dark btn-delete">Delete</a>
       </td>
     </tr>
     </tbody>
