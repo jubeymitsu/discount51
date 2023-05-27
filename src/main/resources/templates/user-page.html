@@ -1,0 +1,30 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Main page</title>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div>
+  <p>ID: <span th:text="${user.id}"></span></p>
+  <p>Name: <span th:text="${user.firstName}"></span></p>
+  <p>Email: <span th:text="${user.phoneNumber}"></span></p>
+  <p>Email: <span th:text="${user.sale}"></span></p>
+</div>
+
+<a th:href="@{'/users/' + ${user.id}}" title="Edit user">Edit</a>
+<a href="#" th:id="d + ${user.id}"
+   title="Delete this tutorial" onclick="showConfirmationAndDelete(event)">Delete</a>
+
+<!--        <a th:href="@{'/users/delete/' + ${user.id}}" id="delete"-->
+<!--           title="Delete this tutorial" class="fa-regular fa-trash-can icon-dark btn-delete">Delete</a>-->
+
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

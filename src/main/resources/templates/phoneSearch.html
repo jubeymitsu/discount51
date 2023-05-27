@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Phone search</title>
+  <link rel="stylesheet" href="bar.css">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="search-box">
+  <div class="row">
+    <input type="text" id="input-box" placeholder="Номер телефона" autocomplete="off">
+    <button>Поиск</button>
+  </div>
+  <div class="result-box">
+  </div>
+</div>
+
+<script th:src="@{/js/autocompl.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

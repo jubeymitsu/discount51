@@ -70,6 +70,14 @@ public class MainController {
         }
     }
 
+    @GetMapping("/users/page/{id}")
+    public String userPage(@PathVariable Integer id, Model model) {
+        User user = userRepository.findById(id).get();
+
+        model.addAttribute("user", user);
+        return "user-page";
+    }
+
     @GetMapping("/users/delete/{id}")
     public String deleteUser(@PathVariable Integer id) {
         userRepository.deleteById(id);
@@ -77,4 +85,8 @@ public class MainController {
         return "redirect:/users";
     }
 
+    @GetMapping("/phoneSearch")
+    public String phoneSearch() {
+        return "phoneSearch";
+    }
 }

@@ -9,8 +9,12 @@
 </head>
 <body>
 
+<div th:replace="fragments/header :: header"></div>
+
 <h2>Hello, admin!</h2>
 <a th:href="@{/users}">Взгляни на покупателей</a>
+<a th:href="@{/phoneSearch}">Поиск</a>
+
 
 </body>
 </html>

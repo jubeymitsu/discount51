@@ -10,6 +10,8 @@
 </head>
 <body>
 
+<div th:replace="fragments/header :: header"></div>
+
 <a th:href="@{/users/new}">Add new user</a>
 
 <div th:if="${users.size() > 0}">
@@ -25,18 +27,17 @@
     </thead>
     <tbody>
     <tr th:each="user : ${users}">
-      <th scope="row">[[${user.id}]]</th>
+      <th scope="row" th:name="id + ${user.id}">[[${user.id}]]</th>
       <td>[[${user.firstName}]]</td>
       <td>[[${user.phoneNumber}]]</td>
       <td>[[${user.sale}]]</td>
       <td>
-        <a th:href="@{'/users/' + ${user.id}}" title="Edit user"
-           class="fa-regular fa-pen-to-square icon-dark">Edit</a>
+        <a th:href="@{'/users/' + ${user.id}}" title="Edit user">Edit</a>
 
 <!--        <a th:href="@{'/users/delete/' + ${user.id}}" id="delete"-->
         <!--           title="Delete this tutorial" class="fa-regular fa-trash-can icon-dark btn-delete">Delete</a>-->
         <a href="#" th:id="d + ${user.id}"
-           title="Delete this tutorial" onclick="showConfirmationAndDelete(event)" class="fa-regular fa-trash-can icon-dark btn-delete">Delete</a>
+           title="Delete this tutorial" onclick="showConfirmationAndDelete(event)">Delete</a>
       </td>
     </tr>
     </tbody>
