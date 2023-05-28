@@ -1,47 +1,38 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Users</title>
-<!--  <script th:src="@{../static/js/main.js}"></script>-->
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Users</title>
+    <!--  <script th:src="@{../static/js/main.js}"></script>-->
 </head>
 <body>
 
-<div th:replace="fragments/header :: header"></div>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
 
 <a th:href="@{/users/new}">Add new user</a>
 
 <div th:if="${users.size() > 0}">
-  <table class="table table-hover table-responsive-xl">
-    <thead class="thead-light">
-    <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Name</th>
-      <th scope="col">Phone number</th>
-      <th scope="col">Sale</th>
-      <th scope="col">Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${users}">
-      <th scope="row" th:name="id + ${user.id}">[[${user.id}]]</th>
-      <td>[[${user.firstName}]]</td>
-      <td>[[${user.phoneNumber}]]</td>
-      <td>[[${user.sale}]]</td>
-      <td>
-        <a th:href="@{'/users/' + ${user.id}}" title="Edit user">Edit</a>
-
-<!--        <a th:href="@{'/users/delete/' + ${user.id}}" id="delete"-->
-        <!--           title="Delete this tutorial" class="fa-regular fa-trash-can icon-dark btn-delete">Delete</a>-->
-        <a href="#" th:id="d + ${user.id}"
-           title="Delete this tutorial" onclick="showConfirmationAndDelete(event)">Delete</a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+    <table class="table table-hover table-responsive-xl">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Телефон</th>
+            <th scope="col">Скидка</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <th scope="row" th:name="id + ${user.id}">[[${user.id}]]</th>
+            <td>[[${user.firstName}]]</td>
+            <td>[[${user.phoneNumber}]]</td>
+            <td>[[${user.sale.getValue()}]]</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 <script th:src="@{/js/main.js}"></script>

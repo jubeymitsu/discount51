@@ -13,12 +13,12 @@ public class User {
     private String firstName;
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
-    @Column(nullable = false)
-    private int sale;
+//    @Column(nullable = false)
+//    private int sale;
+    @Column(name = "sale")
+    private Sale sale;
 
-    private Sale enSale;
-
-    public User(String firstName, String phoneNumber, int sale) {
+    public User(String firstName, String phoneNumber, Sale sale) {
         this.firstName = firstName;
         this.phoneNumber = phoneNumber;
         this.sale = sale;
@@ -34,12 +34,6 @@ public class User {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    public User(Integer id) {
-        this.id = id;
-    }
-
-
 
     public String getFirstName() {
         return firstName;
@@ -57,30 +51,11 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getSale() {
+    public Sale getSale() {
         return sale;
     }
 
-    public void setSale(int sale) {
+    public void setSale(Sale sale) {
         this.sale = sale;
-    }
-
-    public Sale getEnSale() {
-        return enSale;
-    }
-
-    public void setEnSale(Sale enSale) {
-        this.enSale = enSale;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", sale=" + sale +
-                ", enSale=" + enSale +
-                '}';
     }
 }

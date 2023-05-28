@@ -1,28 +1,39 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Main page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Main page</title>
 </head>
 <body>
 
-<div th:replace="fragments/header :: header"></div>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
 
 <h2 th:text="${pageTitle}"/>
 <h1>Form</h1>
 <form action="#" th:action="@{/users/save}" th:object="${user}" method="post" enctype="multipart/form-data">
-  <input type="hidden" th:field="*{id}"/>
-  <p>Name: <input type="text" th:field="*{firstName}" /></p>
-  <p>Phone number: <input type="text" th:field="*{phoneNumber}" /></p>
-  <div>Sale: <input type="checkbox" th:field="*{enSale}" th:value="FIVE"/>5 </br>
-    <input type="checkbox" th:field="*{enSale}" th:value="SEVEN"/>7 </br>
-    <input type="checkbox" th:field="*{enSale}" th:value="TEN"/>10 </br>
-  </div>
 
-  <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    <input type="hidden" th:field="*{id}"/>
+    <p>Имя: <input type="text" th:field="*{firstName}"/></p>
+    <p>Телефон: <input type="text" th:field="*{phoneNumber}"/></p>
+
+    <!--    <div>Скидка: <input type="radio" th:field="*{sale}" th:value="FIVE"/>5 </br>-->
+    <!--        <input type="radio" th:field="*{sale}" th:value="SEVEN"/>7 </br>-->
+    <!--        <input type="radio" th:field="*{sale}" th:value="TEN"/>10 </br>-->
+    <!--    </div>-->
+    <label th:for="sale-select">Скидка: </label>
+    <select th:id="sale-select" th:field="*{sale}">
+        <option th:value="FIVE" th:text="5"></option>
+        <option th:value="SEVEN" th:text="7"></option>
+        <option th:value="TEN" th:text="10"></option>
+        <option th:value="FIFTEEN" th:text="15"></option>
+        <option th:value="TWENTY" th:text="20"></option>
+    </select>
+
+    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+
 </form>
 
 

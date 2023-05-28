@@ -1,21 +1,21 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Main page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Main page</title>
 </head>
 <body>
 
-<div th:replace="fragments/header :: header"></div>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
 
 <div>
-  <p>ID: <span th:text="${user.id}"></span></p>
-  <p>Name: <span th:text="${user.firstName}"></span></p>
-  <p>Email: <span th:text="${user.phoneNumber}"></span></p>
-  <p>Email: <span th:text="${user.sale}"></span></p>
+    <p style="display: none">ID: <span th:text="${user.id}"></span></p>
+    <p>Имя: <span th:text="${user.firstName}"></span></p>
+    <p>Телефон: <span th:text="${user.phoneNumber}"></span></p>
+    <p>Скидка: <span th:text="${user.sale.getValue()}"></span></p>
 </div>
 
 <a th:href="@{'/users/' + ${user.id}}" title="Edit user">Edit</a>

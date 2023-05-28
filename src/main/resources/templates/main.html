@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div th:replace="fragments/header :: header"></div>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
 
 <h2>Hello, admin!</h2>
 <a th:href="@{/users}">Взгляни на покупателей</a>
