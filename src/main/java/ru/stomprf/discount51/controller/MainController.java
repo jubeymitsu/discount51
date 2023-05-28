@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.stomprf.discount51.domain.User;
 import ru.stomprf.discount51.repo.UserRepository;
+import ru.stomprf.discount51.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +15,12 @@ import java.util.List;
 public class MainController {
 
     private final UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    public MainController(UserRepository userRepository) {
+    public MainController(UserRepository userRepository, UserService userService) {
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @GetMapping("/")
@@ -46,12 +49,9 @@ public class MainController {
 
     @PostMapping("/users/save")
     public String saveUser(@ModelAttribute User user, Model model) {
-        System.out.println("Inside method");
-        System.out.println(user);
-        User savedUser = userRepository.save(user);
-        System.out.println("Save user: " + savedUser);
+        User savedUser = userService.saveUser(user);
 
-        return "redirect:/users";
+        return String.format("redirect:/users/page/%d", savedUser.getId());
 
     }
 

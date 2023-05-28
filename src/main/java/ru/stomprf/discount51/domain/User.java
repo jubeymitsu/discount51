@@ -18,10 +18,13 @@ public class User {
     @Column(name = "sale")
     private Sale sale;
 
+    private boolean verified;
+
     public User(String firstName, String phoneNumber, Sale sale) {
         this.firstName = firstName;
         this.phoneNumber = phoneNumber;
         this.sale = sale;
+        this.verified = false;
     }
 
     public User() {
@@ -57,5 +60,24 @@ public class User {
 
     public void setSale(Sale sale) {
         this.sale = sale;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", sale=" + sale +
+                ", verified=" + verified +
+                '}';
     }
 }

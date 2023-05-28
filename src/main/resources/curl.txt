@@ -1,1 +1,0 @@
-curl -X POST https://mainsms.ru/api/message/balance/ -H 'Accept: application/json' -F project=discount51 -F apikey=053679eb56275da89534a4da512a3d73

@@ -13,6 +13,8 @@ import org.apache.http.util.EntityUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -25,10 +27,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class SmsSender {
+
+    @Value("mainsms.project")
     private String _project;
+
+    @Value("mainsms.apiKey")
     private String _apiKey;
+
+    @Value("mainsms.isTest")
     private Boolean _isTest;
+
+    @Value("mainsms.baseDomain")
     private String _baseDomain = "https://mainsms.ru/api/";
 
     public SmsSender(String projectName, String apiKey, Boolean isTest) {
@@ -42,6 +53,9 @@ public class SmsSender {
         _project = projectName;
         _apiKey = apiKey;
         _isTest = false;
+    }
+
+    public SmsSender() {
     }
 
     public JSONObject MessageSend(String message, String recipients, String sender) throws IOException, NoSuchAlgorithmException, URISyntaxException, ParseException {
@@ -76,7 +90,7 @@ public class SmsSender {
 
 
 
-    public JSONObject MessagePrice(String message,String recipients,String sender) throws IOException, NoSuchAlgorithmException, URISyntaxException, ParseException {
+    public JSONObject MessagePrice(String message, String recipients, String sender) throws IOException, NoSuchAlgorithmException, URISyntaxException, ParseException {
         Map<String, String> data = new HashMap<String, String>();
         data.put("project", _project);
         data.put("recipients", recipients);
@@ -98,7 +112,6 @@ public class SmsSender {
         String sign = GetSign(data);
         data.put("sign", sign);
         String result =  SendPost(_baseDomain + "message/balance/", data);
-        System.out.println("PROJECT: " + result);
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(result);
         JSONObject jsonObj = (JSONObject) obj;
