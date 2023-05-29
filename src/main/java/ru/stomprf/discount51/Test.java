@@ -14,8 +14,7 @@ import static java.lang.System.out;
 @Component
 public class Test {
 
-    @Value("${mainsms.apiKey}")
-    private static String apiKey;
+    private static String apiKey = "";
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException, URISyntaxException, ParseException {
         out.println("API KEY: " + apiKey);
         SmsSender sms = new SmsSender("discount51", apiKey, true);
@@ -26,22 +25,6 @@ public class Test {
         } else {
             out.println("Произошла ошибка: " + resultJson.get("message"));
         }
-
-        JSONObject jsonObject = sms.MessageBalance();
-        out.println(jsonObject);
-        out.println(jsonObject.get("balance"));
-
-//        out.println("TEEEEEEST");
-//        JSONObject resultJson = sms.MessageBalance();
-//        out.println("TEEEEEEST");
-//        if (resultJson.get("status").equals("success"))
-//        {
-//            out.println("Баланс: "+resultJson.get("balance") + " рублей");
-//        }
-//        else
-//        {
-//            out.println("Произошла ошибка: "+resultJson.get("message"));
-//        }
     }
 
 }

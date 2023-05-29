@@ -19,10 +19,6 @@
     <p>Имя: <input type="text" th:field="*{firstName}"/></p>
     <p>Телефон: <input type="text" th:field="*{phoneNumber}"/></p>
 
-    <!--    <div>Скидка: <input type="radio" th:field="*{sale}" th:value="FIVE"/>5 </br>-->
-    <!--        <input type="radio" th:field="*{sale}" th:value="SEVEN"/>7 </br>-->
-    <!--        <input type="radio" th:field="*{sale}" th:value="TEN"/>10 </br>-->
-    <!--    </div>-->
     <label th:for="sale-select">Скидка: </label>
     <select th:id="sale-select" th:field="*{sale}">
         <option th:value="FIVE" th:text="5"></option>

@@ -40,7 +40,7 @@ public class MainController {
     }
 
     //Create new user
-    @GetMapping("/users/new")
+    @GetMapping("/users/create")
     public String createUser(Model model) {
         User user = new User();
         model.addAttribute("user", user);
@@ -49,10 +49,27 @@ public class MainController {
 
     @PostMapping("/users/save")
     public String saveUser(@ModelAttribute User user, Model model) {
-        User savedUser = userService.saveUser(user);
+        User savedUser = null;
 
-        return String.format("redirect:/users/page/%d", savedUser.getId());
+        try {
+            savedUser = userService.saveUser(user);
+        } catch (Exception e) {
+            System.out.println("User not added");
+            e.printStackTrace();
+            return "redirect:/users";
+        }
+        return String.format("redirect:/users/verificationPage/%d", savedUser.getId());
+    }
 
+    @GetMapping("/users/verificationPage/{id}")
+    public String verificationPage(@PathVariable Integer id, Model model) {
+        User user = userService.getUser(id);
+        model.addAttribute("user", user);
+        if (userService.sendVerificationCode(user))
+            return "verification-page";
+
+
+        return "redirect:/users";
     }
 
     @GetMapping("/users/{id}")

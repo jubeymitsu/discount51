@@ -4,48 +4,62 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 import ru.stomprf.discount51.SmsSender;
+import ru.stomprf.discount51.Utils;
 import ru.stomprf.discount51.domain.User;
+import ru.stomprf.discount51.domain.VerificationCode;
 import ru.stomprf.discount51.repo.UserRepository;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
-
-import static java.lang.System.out;
+import java.util.HashMap;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
     private final SmsSender smsSender;
+    private final HashMap<Integer, String> verificationCodeCache;
 
-    public UserService(UserRepository userRepository, SmsSender smsSender) {
+    public UserService(UserRepository userRepository, SmsSender smsSender, HashMap<Integer, String> verificationCodeCache) {
         this.userRepository = userRepository;
         this.smsSender = smsSender;
+        this.verificationCodeCache = verificationCodeCache;
+        this.smsSender.options();
     }
 
     public User saveUser(User user) {
-        User savedUser = null;
-        if (user.isVerified()){
-            savedUser = userRepository.save(user);
-            System.out.println("Save user: " + savedUser);
-        }
-        else {
-            verificateUser(user);
-        }
-        return savedUser;
+        return userRepository.save(user);
     }
 
-    private void verificateUser(User user) {
-        String phoneNumber = user.getPhoneNumber().replace("+", "");
-        System.out.println("User phone number: " + phoneNumber);
+    public User getUser(Integer id) {
+        return userRepository.findById(id).get();
+    }
+
+    public boolean sendVerificationCode(User user) {
+        String recipientPhone = user.getPhoneNumber().replace("+", "");
+        String code = Utils.generateCode();
+        System.out.println("---GENERATED CODE---");
+        System.out.println(code);
+
+        verificationCodeCache.put(user.getId(), code);
 
         try {
-            JSONObject resultJson = smsSender.MessageSend("12345", phoneNumber, "testsender");
-            out.println("Сообщение успешно отправленно: " + resultJson);
-
-        } catch (Exception exception) {
-            exception.printStackTrace();
+            JSONObject jsonObject = smsSender.MessageSend(code, recipientPhone, "sendertest");
+            System.out.println("SMS SEND RESULT: " + jsonObject);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
+        return true;
     }
+
+    public boolean verificate(VerificationCode verificationCode) {
+        Integer id = verificationCode.id();
+        String code = verificationCode.code();
+
+        return verificationCodeCache.get(id).equals(code);
+    }
+
+
 }

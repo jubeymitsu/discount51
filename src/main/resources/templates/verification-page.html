@@ -1,0 +1,29 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Main page</title>
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: headerFragment}"></div>
+
+<h1>VERIFICATION PAGE</h1>
+
+<div th:id="id" th:value="${user.id}" style="display: none"></div>
+<div class="verification-box">
+    <div class="row">
+        <input type="text" id="input-box" placeholder="Код" autocomplete="off">
+        <button th:onclick="verificate()">Поиск</button>
+    </div>
+    <div class="result-box">
+    </div>
+</div>
+
+<script th:src="@{/js/verification.js}"></script>
+
+</body>
+</html>

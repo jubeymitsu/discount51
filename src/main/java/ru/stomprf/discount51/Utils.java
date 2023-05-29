@@ -1,9 +1,12 @@
 package ru.stomprf.discount51;
 
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Utils {
+
+    private static final Random RANDOM = new Random();
 
     //ChatGPT generation
     public static boolean validateRussianPhoneNumber(String phoneNumber) {
@@ -16,7 +19,15 @@ public class Utils {
         return matcher.matches();
     }
 
+    public static String generateCode() {
+        int code = RANDOM.nextInt(10000);
+
+        return String.format("%04d", code);
+    }
+
     public static void main(String[] args) {
-        System.out.println(validateRussianPhoneNumber("+79216059950"));
+//        System.out.println(validateRussianPhoneNumber("+79216059950"));
+//        for (int i = 0; i < 25; i++) {
+//            System.out.println(generateCode());
     }
 }

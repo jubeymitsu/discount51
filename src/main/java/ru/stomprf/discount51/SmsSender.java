@@ -14,6 +14,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -27,20 +28,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Component
 public class SmsSender {
 
-    @Value("mainsms.project")
+    @Value("${mainsms.project}")
     private String _project;
 
-    @Value("mainsms.apiKey")
+    @Value("${mainsms.apiKey}")
     private String _apiKey;
 
-    @Value("mainsms.isTest")
+    @Value("${mainsms.isTest}")
     private Boolean _isTest;
 
-    @Value("mainsms.baseDomain")
-    private String _baseDomain = "https://mainsms.ru/api/";
+    @Value("${mainsms.baseDomain}")
+    private String _baseDomain;
+
+    @Deprecated
+    public void options(){
+        System.out.println("SMS SENDER OPTIONS");
+        System.out.println("Project: " + _project);
+        System.out.println("ApiKey: " + _apiKey);
+        System.out.println("Is test: " + _isTest);
+        System.out.println("Base domain: " + _baseDomain);
+    }
 
     public SmsSender(String projectName, String apiKey, Boolean isTest) {
         _project = projectName;

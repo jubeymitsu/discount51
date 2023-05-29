@@ -11,7 +11,7 @@ public class User {
     private Integer id;
     @Column(name = "first_name", nullable = false)
     private String firstName;
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number", unique = true, nullable = false)
     private String phoneNumber;
 //    @Column(nullable = false)
 //    private int sale;
