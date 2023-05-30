@@ -18,7 +18,7 @@ public class User {
     @Column(name = "sale")
     private Sale sale;
 
-    private boolean verified;
+    private boolean verified = false;
 
     public User(String firstName, String phoneNumber, Sale sale) {
         this.firstName = firstName;

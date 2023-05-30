@@ -17,14 +17,8 @@ public class TestController {
     }
 
     @PostMapping("/phoneSearch")
-    public List<User> hello(@RequestParam(name = "phoneNumber") String phoneNumber){
+    public List<User> hello(@RequestParam(name = "phoneNumber") String phoneNumber) {
         System.out.println(phoneNumber);
         return userRepository.findByPhoneNumberLike("%" + phoneNumber + "%");
     }
-
-
-
-
-
-
 }

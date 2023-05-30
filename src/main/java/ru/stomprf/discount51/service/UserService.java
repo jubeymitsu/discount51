@@ -1,7 +1,6 @@
 package ru.stomprf.discount51.service;
 
 import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 import ru.stomprf.discount51.SmsSender;
 import ru.stomprf.discount51.Utils;
@@ -9,9 +8,6 @@ import ru.stomprf.discount51.domain.User;
 import ru.stomprf.discount51.domain.VerificationCode;
 import ru.stomprf.discount51.repo.UserRepository;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
 @Service
@@ -40,7 +36,7 @@ public class UserService {
         String recipientPhone = user.getPhoneNumber().replace("+", "");
         String code = Utils.generateCode();
         System.out.println("---GENERATED CODE---");
-        System.out.println(code);
+        System.out.println(code + '\n');
 
         verificationCodeCache.put(user.getId(), code);
 
@@ -54,12 +50,19 @@ public class UserService {
         return true;
     }
 
-    public boolean verificate(VerificationCode verificationCode) {
+    public boolean verify(VerificationCode verificationCode) {
         Integer id = verificationCode.id();
         String code = verificationCode.code();
+        if (verificationCodeCache.get(id) == null)
+            return false;
+        if (verificationCodeCache.get(id).equals(code)) {
+            User user = userRepository.findById(id).get();
+            user.setVerified(true);
+            userRepository.save(user);
+            verificationCodeCache.remove(id);
+            return true;
+        }
 
-        return verificationCodeCache.get(id).equals(code);
+        return false;
     }
-
-
 }

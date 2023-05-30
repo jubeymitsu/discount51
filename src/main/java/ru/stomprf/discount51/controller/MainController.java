@@ -68,7 +68,6 @@ public class MainController {
         if (userService.sendVerificationCode(user))
             return "verification-page";
 
-
         return "redirect:/users";
     }
 
