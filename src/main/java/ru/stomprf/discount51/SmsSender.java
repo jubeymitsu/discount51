@@ -15,7 +15,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+import ru.stomprf.discount51.service.SmsService;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class SmsSender {
+public class SmsSender implements SmsService {
 
     @Value("${mainsms.project}")
     private String _project;
@@ -65,11 +65,11 @@ public class SmsSender {
         _isTest = false;
     }
 
-    public SmsSender() {
+    public SmsSender(){
     }
 
-    public JSONObject MessageSend(String message, String recipients, String sender) throws IOException, NoSuchAlgorithmException, URISyntaxException, ParseException {
-        Map<String, String> data = new HashMap<String, String>();
+    public JSONObject sendMessage(String message, String recipients, String sender) throws IOException, NoSuchAlgorithmException, URISyntaxException, ParseException {
+        Map<String, String> data = new HashMap<>();
         data.put("test" , _isTest==true ? "1" : "0");
         data.put("project", _project);
         data.put("recipients", recipients);

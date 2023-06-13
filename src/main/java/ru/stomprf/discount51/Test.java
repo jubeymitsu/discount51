@@ -19,7 +19,7 @@ public class Test {
         out.println("API KEY: " + apiKey);
         SmsSender sms = new SmsSender("discount51", apiKey, true);
 
-        JSONObject resultJson = sms.MessageSend("Я тебя люблю <3", "79211555579", "sendertest");
+        JSONObject resultJson = sms.sendMessage("", "", "sendertest");
         if (resultJson.get("status").equals("success")) {
             out.println("Сообщение успешно отправленно, стоимость отправки: " + resultJson.get("price") + " рублей");
         } else {

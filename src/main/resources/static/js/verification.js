@@ -1,39 +1,36 @@
 console.log("Hello verification")
 
-const url = "/verify"
+const url = "/verification/verify"
 
-function verify() {
+async function verify() {
 
     let elem = document.getElementById("id");
     let id = parseInt(elem.getAttribute("value"));
 
     let input = document.getElementById("input-box").value;
 
-    let data = {"id": id, "code": input};
+    let sendData = {"id": id, "code": input};
 
-    console.log(data);
+    console.log(sendData);
 
     let status;
 
-    fetch(url, {
+    const response = await fetch(url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(data)
-    })
-        .then(response => response.json())
-        .then(result => {
-            console.log(result);
-            status = result.message
-            console.log(status)
-        })
-    console.log("STATUS: " + status)
-    if (status == "success")
+        body: JSON.stringify(sendData)
+    });
+    const jsonData = await response.json();
+    console.log(jsonData);
+
+    const message = jsonData.message;
+    console.log("STATUS: " + jsonData.message)
+    if (message === "success")
         window.location.href = '/users';
     else
         console.log("WRONG!")
-
 }
 
 

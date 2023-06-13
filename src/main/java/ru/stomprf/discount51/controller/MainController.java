@@ -58,17 +58,7 @@ public class MainController {
             e.printStackTrace();
             return "redirect:/users";
         }
-        return String.format("redirect:/users/verificationPage/%d", savedUser.getId());
-    }
-
-    @GetMapping("/users/verificationPage/{id}")
-    public String verificationPage(@PathVariable Integer id, Model model) {
-        User user = userService.getUser(id);
-        model.addAttribute("user", user);
-        if (userService.sendVerificationCode(user))
-            return "verification-page";
-
-        return "redirect:/users";
+        return String.format("redirect:/verification/page/%d", savedUser.getId());
     }
 
     @GetMapping("/users/{id}")

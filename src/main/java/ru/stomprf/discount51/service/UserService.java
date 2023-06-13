@@ -14,14 +14,13 @@ import java.util.HashMap;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final SmsSender smsSender;
+    private final SmsService smsService;
     private final HashMap<Integer, String> verificationCodeCache;
 
     public UserService(UserRepository userRepository, SmsSender smsSender, HashMap<Integer, String> verificationCodeCache) {
         this.userRepository = userRepository;
-        this.smsSender = smsSender;
+        this.smsService = smsSender;
         this.verificationCodeCache = verificationCodeCache;
-        this.smsSender.options();
     }
 
     public User saveUser(User user) {
@@ -33,6 +32,8 @@ public class UserService {
     }
 
     public boolean sendVerificationCode(User user) {
+        if (user.isVerified())
+            return false;
         String recipientPhone = user.getPhoneNumber().replace("+", "");
         String code = Utils.generateCode();
         System.out.println("---GENERATED CODE---");
@@ -41,7 +42,7 @@ public class UserService {
         verificationCodeCache.put(user.getId(), code);
 
         try {
-            JSONObject jsonObject = smsSender.MessageSend(code, recipientPhone, "sendertest");
+            JSONObject jsonObject = smsService.sendMessage(code, recipientPhone, "sendertest");
             System.out.println("SMS SEND RESULT: " + jsonObject);
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,7 +63,6 @@ public class UserService {
             verificationCodeCache.remove(id);
             return true;
         }
-
         return false;
     }
 }
