@@ -19,7 +19,7 @@ class Discount51ApplicationTests {
 
         SmsSender sms = new SmsSender("discount51","053679eb56275da89534a4da512a3d73",true);
 
-        JSONObject resultJson = sms.MessageSend("I love you!", "79211555579", "Ilya");
+        JSONObject resultJson = sms.sendMessage("I love you!", "79211555579", "Ilya");
         if (resultJson.get("status").equals("success"))
         {
             out.println("Сообщение успешно отправленно, стоимость отправки: "+resultJson.get("price")+" рублей");

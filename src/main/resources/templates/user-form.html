@@ -5,33 +5,50 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <title>Main page</title>
 </head>
 <body>
 
 <div th:replace="~{fragments/header :: headerFragment}"></div>
 
-<h2 th:text="${pageTitle}"/>
-<h1>Form</h1>
-<form action="#" th:action="@{/users/save}" th:object="${user}" method="post" enctype="multipart/form-data">
 
-    <input type="hidden" th:field="*{id}"/>
-    <p>Имя: <input type="text" th:field="*{firstName}"/></p>
-    <p>Телефон: <input type="text" th:field="*{phoneNumber}"/></p>
+<div class="container">
+    <h2 th:text="${pageTitle}"/>
+    <form class="row gy-2 gx-3 align-items-center" th:action="@{/users/save}" th:object="${user}" method="post"
+          enctype="multipart/form-data">
+        <input type="hidden" th:field="*{id}">
+        <div class="col-auto">
+            <label class="form-label" for="autoSizingInput">Имя</label>
+            <input type="text" class="form-control" id="autoSizingInput" th:field="*{firstName}">
+        </div>
+        <div class="col-auto">
+            <label class="form-label" for="autoSizingInputGroup">Номер</label>
+            <input type="text" class="form-control" id="autoSizingInputGroup" th:field="*{phoneNumber}">
+        </div>
+        <div class="col-auto">
+            <label class="form-label" th:for="autoSizingSelect">Скидка</label>
+            <select class="form-select" id="autoSizingSelect" th:field="*{sale}">
+                <option th:value="FIVE" th:text="5" selected></option>
+                <option th:value="SEVEN" th:text="7"></option>
+                <option th:value="TEN" th:text="10"></option>
+                <option th:value="FIFTEEN" th:text="15"></option>
+                <option th:value="TWENTY" th:text="20"></option>
+            </select>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </div>
+    </form>
+</div>
 
-    <label th:for="sale-select">Скидка: </label>
-    <select th:id="sale-select" th:field="*{sale}">
-        <option th:value="FIVE" th:text="5"></option>
-        <option th:value="SEVEN" th:text="7"></option>
-        <option th:value="TEN" th:text="10"></option>
-        <option th:value="FIFTEEN" th:text="15"></option>
-        <option th:value="TWENTY" th:text="20"></option>
-    </select>
-
-    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
-
-</form>
-
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>

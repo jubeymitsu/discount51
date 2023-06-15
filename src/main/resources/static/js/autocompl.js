@@ -37,6 +37,27 @@ inputBox.onkeyup = async function () {
         // console.log(result)
         result = await postData(input.toLowerCase())
         console.log(result)
+        result.forEach(person => {
+            switch (person.sale){
+                case 'FIVE':
+                    person.sale = "5"
+                    break;
+                case 'SEVEN':
+                    person.sale = "7"
+                    break;
+                case 'TEN':
+                    person.sale = "10"
+                    break;
+                case 'FIFTEEN':
+                    person.sale = "15"
+                    break;
+                case 'TWENTY':
+                    person.sale = "20"
+                    break;
+                default:
+                    console.log('Unknown fruit');
+            }
+        })
     }
     display(result);
 }
@@ -44,20 +65,34 @@ inputBox.onkeyup = async function () {
 function display(result){
     const content = result.map(user => {
             return `<li id="${user.id}" onclick = selectInput(this)>` +
-                '<b>Name:</b> ' + user.firstName +
-                '<b>Sale:</b> ' + user.sale +
-                '<b>Phone number: </b>' + user.phoneNumber +
+                '<b>Имя:</b> ' + user.firstName +
+                '<b>Скидка:</b> ' + user.sale +
+                '<b>Телефон: </b>' + user.phoneNumber +
                 '</li>'
         }
     );
     resultBox.innerHTML = "<ul>" + content.join('') + "</ul>";
 }
 
-function selectInput(element) {
-    // inputBox.value = list.innerHTML;
-    // resultBox.innerHTML = '';
-    let id = element.id
-    console.log(id)
-    window.location.href = `/users/page/${id}`;
+function display(result) {
+    const content = result.map(user => {
+            return `<li class="list-group-item"><a 
+class="link-primary link-offset-2 link-underline link-underline-opacity-0" 
+href="/users/page/${user.id}" id="${user.id}" onclick = selectInput(this)>` +
+                '<b> Имя:</b> ' + user.firstName +
+                '<b> Скидка: </b> ' + user.sale +
+                '<b> Телефон: </b>' + user.phoneNumber +
+                '</li></a>'
+        }
+    );
+    resultBox.innerHTML = "<ul class='list-group'>" + content.join('') + "</ul>";
 }
+
+// function selectInput(element) {
+//     // inputBox.value = list.innerHTML;
+//     // resultBox.innerHTML = '';
+//     let id = element.id
+//     console.log(id)
+//     window.location.href = `/users/page/${id}`;
+// }
 

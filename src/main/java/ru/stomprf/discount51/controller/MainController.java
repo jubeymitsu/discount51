@@ -9,7 +9,10 @@ import ru.stomprf.discount51.repo.UserRepository;
 import ru.stomprf.discount51.service.UserService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 @Controller
 public class MainController {
@@ -26,6 +29,9 @@ public class MainController {
     @GetMapping("/")
     public String mainPage(@RequestParam(required = false, name = "name") String name, Model model) {
         model.addAttribute("name", name);
+        Iterable<User> all = userRepository.findAll();
+        long count = StreamSupport.stream(all.spliterator(), false).count();
+        model.addAttribute("count", count);
         return "main";
     }
 
@@ -44,21 +50,23 @@ public class MainController {
     public String createUser(Model model) {
         User user = new User();
         model.addAttribute("user", user);
+        model.addAttribute("pageTitle", "Новый пользователь");
         return "user-form";
     }
 
     @PostMapping("/users/save")
     public String saveUser(@ModelAttribute User user, Model model) {
-        User savedUser = null;
-
         try {
-            savedUser = userService.saveUser(user);
+            if (user.getId() == null) {
+                User savedUser = userService.saveUser(user);
+                return String.format("redirect:/verification/page/%d", savedUser.getId());
+            }
+            userService.saveUser(user);
         } catch (Exception e) {
             System.out.println("User not added");
             e.printStackTrace();
-            return "redirect:/users";
         }
-        return String.format("redirect:/verification/page/%d", savedUser.getId());
+        return "redirect:/users";
     }
 
     @GetMapping("/users/{id}")
@@ -67,7 +75,7 @@ public class MainController {
             User user = userRepository.findById(id).get();
 
             model.addAttribute("user", user);
-            model.addAttribute("pageTitle", "Edit user (ID: " + id + ")");
+            model.addAttribute("pageTitle", "Изменить (ID: " + id + ")");
 
             return "user-form";
         } catch (Exception e) {

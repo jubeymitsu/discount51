@@ -9,6 +9,7 @@ import ru.stomprf.discount51.domain.VerificationCode;
 import ru.stomprf.discount51.repo.UserRepository;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -24,6 +25,11 @@ public class UserService {
     }
 
     public User saveUser(User user) {
+//        Integer id = user.getId();
+//        Optional<User> repoUser = userRepository.findById(id);
+//        if (repoUser.isEmpty())
+//            return userRepository.save(user);
+        System.out.println("USER ID: " + user.getId());
         return userRepository.save(user);
     }
 
