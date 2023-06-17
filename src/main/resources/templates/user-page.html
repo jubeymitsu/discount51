@@ -18,9 +18,9 @@
     <p>Телефон: <span th:text="${user.phoneNumber}"></span></p>
     <p>Скидка: <span th:text="${user.sale.getValue()}"></span></p>
 
-    <a th:href="@{'/users/' + ${user.id}}" class="btn btn-success" title="Edit user">Edit</a>
+    <a th:href="@{'/users/' + ${user.id}}" class="btn btn-success" title="Edit user">Изменить</a>
     <a href="#" th:id="d + ${user.id}" class="btn btn-danger"
-       title="Delete this tutorial" onclick="showConfirmationAndDelete(event)">Delete</a>
+       title="Delete this tutorial" onclick="showConfirmationAndDelete(event)">Удалить</a>
 
 </div>
 

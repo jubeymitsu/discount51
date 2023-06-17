@@ -8,6 +8,9 @@
 //     "+79216059956",
 // ];
 
+const resultBox = document.querySelector(".result-box");
+const inputBox = document.getElementById("input-box");
+
 async function postData(data) {
     let formData = new FormData();
     formData.append('phoneNumber', data);
@@ -23,9 +26,6 @@ async function postData(data) {
     console.log(result);
     return result;
 }
-
-const resultBox = document.querySelector(".result-box");
-const inputBox = document.getElementById("input-box");
 
 inputBox.onkeyup = async function () {
     let result = [];

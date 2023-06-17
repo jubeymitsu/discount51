@@ -2,8 +2,6 @@ package ru.stomprf.discount51.service;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Service;
-import ru.stomprf.discount51.domain.VerificationCode;
 
 import java.util.HashMap;
 

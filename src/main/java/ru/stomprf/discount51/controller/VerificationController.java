@@ -7,37 +7,36 @@ import org.springframework.web.bind.annotation.*;
 import ru.stomprf.discount51.domain.Status;
 import ru.stomprf.discount51.domain.User;
 import ru.stomprf.discount51.domain.VerificationCode;
-import ru.stomprf.discount51.service.UserService;
+import ru.stomprf.discount51.service.VerificationService;
 
 @Controller
 @RequestMapping("/verification")
 public class VerificationController {
 
-    @Autowired
-    private final UserService userService;
+    private final VerificationService verificationService;
 
-    public VerificationController(UserService userService) {
-        this.userService = userService;
+    public VerificationController(@Autowired VerificationService verificationService) {
+        this.verificationService = verificationService;
     }
+
 
     @GetMapping("/page/{id}")
     public String verificationPage(@PathVariable Integer id, Model model) {
-        User user = userService.getUser(id);
-        if (user == null)
-            return "redirect:/users";
-
-        if (userService.sendVerificationCode(user)) {
-            model.addAttribute("user", user);
+        try {
+            verificationService.sendVerificationCode(id);
+            model.addAttribute("id", id);
             return "verification-page";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/users";
         }
-        return "redirect:/users";
     }
 
     @PostMapping("/verify")
     public @ResponseBody Status verify(@RequestBody VerificationCode verificationCode) {
         System.out.println("VERIFICATION CODE HAS BEEN RECEIVED: " + verificationCode);
         Status status;
-        if (userService.verify(verificationCode)) {
+        if (verificationService.verify(verificationCode)) {
             status = new Status("success");
             return status;
         }

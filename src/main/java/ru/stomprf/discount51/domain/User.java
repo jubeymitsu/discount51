@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -16,6 +16,7 @@ public class User {
     @Column(name = "sale")
     private Sale sale;
 
+    @Column(name = "verified")
     private boolean verified = false;
 
     public User(String firstName, String phoneNumber, Sale sale) {

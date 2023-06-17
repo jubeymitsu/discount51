@@ -1,4 +1,6 @@
-package ru.stomprf.discount51;
+package ru.stomprf.discount51.util;
+
+import ru.stomprf.discount51.exception.InvalidPhoneNumberException;
 
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -9,14 +11,14 @@ public class Utils {
     private static final Random RANDOM = new Random();
 
     //ChatGPT generation
-    public static boolean validateRussianPhoneNumber(String phoneNumber) {
+    public static void validateRussianPhoneNumber(String phoneNumber) throws InvalidPhoneNumberException {
         // Regular expression pattern for a valid Russian phone number without spaces and brackets
         String regex = "^\\+7\\d{10}$";
 
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(phoneNumber);
-
-        return matcher.matches();
+        if (!matcher.matches())
+            throw new InvalidPhoneNumberException(phoneNumber);
     }
 
     public static String generateCode() {
@@ -26,8 +28,6 @@ public class Utils {
     }
 
     public static void main(String[] args) {
-//        System.out.println(validateRussianPhoneNumber("+79216059950"));
-//        for (int i = 0; i < 25; i++) {
-//            System.out.println(generateCode());
+        validateRussianPhoneNumber("'+792160599501' doesn't match pattern");
     }
 }

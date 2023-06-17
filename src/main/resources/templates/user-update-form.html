@@ -16,7 +16,7 @@
 
 <div class="container">
     <h2 th:text="${pageTitle}"/>
-    <form class="row gy-2 gx-3 align-items-center" th:action="@{/users/save}" th:object="${user}" method="post"
+    <form class="row gy-2 gx-3 align-items-center" th:action="@{/users/update}" th:object="${user}" method="post"
           enctype="multipart/form-data">
         <input type="hidden" th:field="*{id}">
         <div class="col-auto">
