@@ -13,8 +13,26 @@
 
 <div th:replace="~{fragments/header :: headerFragment}"></div>
 
+<div class="row">
+    <div class="col"></div>
+    <div class="col">
+        <div th:if="${message != null}" class="alert alert-warning alert-dismissible fade show text-center message"
+             role="alert">
+            [[${message}]]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
 <div class="container">
-    <a th:href="@{/users/create}" class="btn btn-primary">Добавить</a>
+    <div class="row gy-5">
+        <div class="col"></div>
+        <div class="col">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end p-3">
+                <a th:href="@{/users/create}" class="btn btn-primary">Добавить</a>
+            </div>
+        </div>
+    </div>
+
 
     <div th:if="${users.size() > 0}">
         <table class="table table-secondary table-striped">
@@ -31,7 +49,9 @@
             <tr th:each="user : ${users}">
                 <th scope="row" th:name="id + ${user.id}">[[${user.id}]]</th>
                 <td>[[${user.firstName}]]</td>
-                <td>[[${user.phoneNumber}]]</td>
+                <td><a class="link-offset-2 link-underline link-underline-opacity-0"
+                       th:with="userIdLink=${user.id}"
+                       th:href="@{/users/page/{variable}(variable=${userIdLink})}">[[${user.phoneNumber}]]</a></td>
                 <td>[[${user.sale.getValue()}]]</td>
                 <td>[[${user.verified}]]</td>
             </tr>
@@ -41,9 +61,12 @@
 </div>
 
 
-
 <script th:src="@{/js/main.js}"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+        crossorigin="anonymous"></script>
 </body>
 </html>

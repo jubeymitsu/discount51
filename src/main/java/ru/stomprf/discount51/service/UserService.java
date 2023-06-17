@@ -25,10 +25,6 @@ public class UserService {
     }
 
     public User saveUser(User user) {
-//        Integer id = user.getId();
-//        Optional<User> repoUser = userRepository.findById(id);
-//        if (repoUser.isEmpty())
-//            return userRepository.save(user);
         System.out.println("USER ID: " + user.getId());
         return userRepository.save(user);
     }

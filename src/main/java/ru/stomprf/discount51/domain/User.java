@@ -13,8 +13,6 @@ public class User {
     private String firstName;
     @Column(name = "phone_number", unique = true, nullable = false)
     private String phoneNumber;
-//    @Column(nullable = false)
-//    private int sale;
     @Column(name = "sale")
     private Sale sale;
 
